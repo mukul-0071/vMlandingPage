@@ -1,6 +1,6 @@
 export function BaseLayer({ children, className = "" }) {
   return (
-    <div className={`absolute inset-0 z-0 bg-blue-600 ${className}`}>
+    <div className={`absolute inset-0 z-0 bg-[#717171] ${className}`}>
       {children}
     </div>
   );

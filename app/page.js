@@ -1,16 +1,18 @@
-import HeroSection from "./components/HeroSection";
-import InfiniteMarquee from "./components/InfiniteMarquee";
-import MainLayerBg from "./components/MainLayerBg";
-import TestComponent from "./components/TestComponent";
+import HeroSection from "./components/herosection/HeroSection";
+import InfiniteMarquee from "./components/infiniteMarquee/InfiniteMarquee";
+import MainLayerBg from "./components/mainLayerBg/MainLayerBg";
+import HomePageContent from "./components/homePageContent/HomePageContent";
 
 export default function Home() {
   return (
     <MainLayerBg>
       <HeroSection />
       <InfiniteMarquee />
-      <TestComponent />
+      <HomePageContent />
     </MainLayerBg>
   );
 }
+
+
 
 

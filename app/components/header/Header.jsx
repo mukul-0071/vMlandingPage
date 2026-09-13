@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import logoSvg from "../../assets/icons/virkMediaBrandLogofull.svg";
+import logoSvg from "../../../assets/icons/virkMediaBrandLogofull.svg";
 
 export default function Header() {
   return (
@@ -45,4 +45,3 @@ export default function Header() {
     </header>
   );
 }
-

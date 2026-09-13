@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { marqueeItems } from "../../utils/marqueeData";
+import { marqueeItems } from "../../../utils/marqueeData";
 
 export default function InfiniteMarquee() {
   const groups = [marqueeItems, marqueeItems, marqueeItems, marqueeItems, marqueeItems];
@@ -30,4 +30,3 @@ export default function InfiniteMarquee() {
     </div>
   );
 }
-

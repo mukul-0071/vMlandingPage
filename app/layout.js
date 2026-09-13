@@ -1,10 +1,22 @@
-import { Oswald } from "next/font/google";
+import { Oswald, Instrument_Serif, Inter } from "next/font/google";
 import "./globals.css";
 
 const oswald = Oswald({
   variable: "--font-oswald",
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["200", "400", "700"],
+});
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument",
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
 });
 
 export const metadata = {
@@ -14,7 +26,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${oswald.variable} h-full antialiased`}>
+    <html
+      lang="en"
+      className={`${oswald.variable} ${instrumentSerif.variable} ${inter.variable} h-full antialiased`}
+    >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

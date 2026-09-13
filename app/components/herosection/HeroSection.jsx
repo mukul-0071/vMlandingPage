@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import Header from "./Header";
-import Button from "./Button";
+import Header from "../header/Header";
+import Button from "../button/Button";
 
 export default function HeroSection() {
   return (
