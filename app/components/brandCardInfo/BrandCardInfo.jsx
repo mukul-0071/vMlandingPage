@@ -94,10 +94,10 @@ export default function BrandCardInfo() {
       {/* Upper Section: Cards + Copy Content */}
       <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
         {/* Left side GSAP Animated Cards stack */}
-        <div className="w-full lg:w-[650px] shrink-0 flex justify-center items-center">
+        <div className="w-full lg:w-[680px] shrink-0 flex justify-center items-center">
           <div
             ref={stackRef}
-            className="relative w-full max-w-[500px] aspect-square flex justify-center items-center"
+            className="relative w-full max-w-[620px] aspect-square flex justify-center items-center"
           >
             {/* Card 4 (Bottom-most back card) */}
             <div className="stack-card absolute inset-0 flex justify-center items-center z-10 drop-shadow-xl">
@@ -105,7 +105,7 @@ export default function BrandCardInfo() {
                 src={brandCardFour}
                 alt="Brand Card Back 2"
                 priority
-                className="w-[90%] h-auto object-contain pointer-events-none select-none"
+                className="w-full h-auto object-contain pointer-events-none select-none"
               />
             </div>
 
@@ -115,7 +115,7 @@ export default function BrandCardInfo() {
                 src={brandCardThree}
                 alt="Brand Card Back 1"
                 priority
-                className="w-[90%] h-auto object-contain pointer-events-none select-none"
+                className="w-full h-auto object-contain pointer-events-none select-none"
               />
             </div>
 
@@ -125,7 +125,7 @@ export default function BrandCardInfo() {
                 src={brandCardTwo}
                 alt="Brand Card Mid 2"
                 priority
-                className="w-[82%] h-auto object-contain pointer-events-none select-none"
+                className="w-full h-auto object-contain pointer-events-none select-none"
               />
             </div>
 
@@ -135,7 +135,7 @@ export default function BrandCardInfo() {
                 src={brandCardOne}
                 alt="Brand Card Mid 1"
                 priority
-                className="w-[90%] h-auto object-contain pointer-events-none select-none"
+                className="w-full h-auto object-contain pointer-events-none select-none"
               />
             </div>
 
@@ -145,7 +145,7 @@ export default function BrandCardInfo() {
                 src={brandTopCard}
                 alt="Your Brand Top Card"
                 priority
-                className="w-[95%] h-auto object-contain pointer-events-none select-none"
+                className="w-full h-auto object-contain pointer-events-none select-none"
               />
             </div>
           </div>
@@ -211,7 +211,9 @@ export default function BrandCardInfo() {
           <div className="flex flex-col items-center lg:items-start justify-center lg:justify-start gap-[5px] w-full uppercase font-['Oswald']">
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-[10px] text-[20px] xs:text-[24px] sm:text-[28px] font-bold leading-tight sm:leading-[41px]">
               <span className="text-[#D3533D]">30 MINUTES</span>
-              <span className="text-[#F4F1E9] text-[16px] sm:text-[18px]">|</span>
+              <span className="text-[#F4F1E9] text-[16px] sm:text-[18px]">
+                |
+              </span>
               <span className="text-[#F4F1E9]">YOUR BRAND</span>
             </div>
             <h4 className="text-[26px] xs:text-[32px] sm:text-[38px] font-bold leading-tight sm:leading-[40px] tracking-tight text-[#F4F1E9] text-center lg:text-left">
