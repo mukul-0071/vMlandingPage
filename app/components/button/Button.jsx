@@ -24,7 +24,7 @@ export default function Button({
 
       <button
         onClick={onClick}
-        className="relative flex items-center justify-center gap-[10px] w-full h-full px-[30px] py-[10px] bg-[#D3533D] group-hover:bg-[#F4F1E9] text-white group-hover:text-[#D3533D] font-['Satoshi',sans-serif] font-bold text-base text-center leading-none tracking-normal transition-all duration-300 cursor-pointer shadow-lg  whitespace-nowrap"
+        className="relative flex items-center justify-center gap-[10px] w-full h-full px-[30px] py-[10px] bg-[#D3533D] group-hover:bg-[#F4F1E9] text-white group-hover:text-[#D3533D] font-['Satoshi',sans-serif] font-bold text-base text-center leading-none tracking-normal transition-all duration-300 cursor-pointer shadow-lg whitespace-nowrap"
       >
         <span className="whitespace-nowrap leading-none text-center">
           {children}
