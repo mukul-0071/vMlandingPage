@@ -50,7 +50,7 @@ export default function SecondSection() {
             duration: 1.0,
             ease: "power2.inOut",
           },
-          "step1"
+          "step1",
         )
         .to(
           badgeBoxRef.current,
@@ -59,17 +59,17 @@ export default function SecondSection() {
             duration: 1.0,
             ease: "power2.inOut",
           },
-          "step1"
+          "step1",
         )
         .to(
           imageOneRef.current,
           { opacity: 0, duration: 1.0, ease: "power2.inOut" },
-          "step1"
+          "step1",
         )
         .to(
           imageTwoRef.current,
           { opacity: 1, duration: 1.0, ease: "power2.inOut" },
-          "step1"
+          "step1",
         )
 
         .to({}, { duration: 3 }) // Hold "PRODUCE" for 3 seconds
@@ -82,7 +82,7 @@ export default function SecondSection() {
             duration: 1.0,
             ease: "power2.inOut",
           },
-          "step2"
+          "step2",
         )
         .to(
           badgeBoxRef.current,
@@ -91,17 +91,17 @@ export default function SecondSection() {
             duration: 1.0,
             ease: "power2.inOut",
           },
-          "step2"
+          "step2",
         )
         .to(
           imageTwoRef.current,
           { opacity: 0, duration: 1.0, ease: "power2.inOut" },
-          "step2"
+          "step2",
         )
         .to(
           imageOneRef.current,
           { opacity: 1, duration: 1.0, ease: "power2.inOut" },
-          "step2"
+          "step2",
         )
 
         // Instantly reset track back to 0% for infinite upward loop
