@@ -49,6 +49,10 @@ export function BaseLayer({ children, className = "" }) {
       <div className="absolute top-[10900px] sm:top-[6000px] lg:top-[9200px] right-0 pointer-events-none z-0">
         <FireSection position="right" />
       </div>
+      {/* Additional Bottom FireSection for Testimonial Section area */}
+      <div className="absolute top-[15500px] sm:top-[10200px] lg:top-[11950px] left-1/2 -translate-x-1/2 w-full flex justify-center pointer-events-none z-0">
+        <FireSection position="bottom" />
+      </div>
       {children}
     </div>
   );

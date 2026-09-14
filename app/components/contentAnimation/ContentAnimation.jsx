@@ -2,54 +2,58 @@
 
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-export default function ContentAnimation({ children, className = "", delay = 0 }) {
+gsap.registerPlugin(ScrollTrigger);
+
+export default function ContentAnimation({
+  children,
+  className = "",
+  delay = 0,
+  parallaxSpeed = 0,
+}) {
   const elementRef = useRef(null);
 
   useEffect(() => {
     if (!elementRef.current) return;
 
-    let observer;
+    const el = elementRef.current;
     const ctx = gsap.context(() => {
-      const el = elementRef.current;
-
-      // Set initial hidden state: shifted downwards with zero opacity
-      gsap.set(el, {
-        y: 60,
-        opacity: 0,
-      });
-
-      // IntersectionObserver to detect when section enters screen on scroll
-      observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              gsap.to(entry.target, {
-                y: 0,
-                opacity: 1,
-                duration: 1.2,
-                delay: delay,
-                ease: "power3.out",
-              });
-              // Stop observing once animated
-              observer.unobserve(entry.target);
-            }
-          });
-        },
+      // 1. Initial Scroll Reveal (Fade In + Up)
+      gsap.fromTo(
+        el,
+        { y: 60, opacity: 0 },
         {
-          threshold: 0.1,
-          rootMargin: "0px 0px -40px 0px",
+          y: 0,
+          opacity: 1,
+          duration: 1.2,
+          delay: delay,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 88%",
+            toggleActions: "play none none none",
+          },
         }
       );
 
-      observer.observe(el);
+      // 2. Parallax Scrolling Movement (if speed > 0)
+      if (parallaxSpeed > 0) {
+        gsap.to(el, {
+          y: -50 * parallaxSpeed,
+          ease: "none",
+          scrollTrigger: {
+            trigger: el,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      }
     }, elementRef);
 
-    return () => {
-      if (observer) observer.disconnect();
-      ctx.revert();
-    };
-  }, [delay]);
+    return () => ctx.revert();
+  }, []);
 
   return (
     <div ref={elementRef} className={`w-full ${className}`}>

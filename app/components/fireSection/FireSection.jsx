@@ -33,20 +33,27 @@ export default function FireSection({
   }, []);
 
   const isRight = position === "right";
+  const isBottom = position === "bottom";
 
   const fireGraphicEl = (
     <div
       ref={containerRef}
       className={`pointer-events-none flex items-center ${
-        isRight ? "justify-end" : "justify-start"
+        isBottom
+          ? "justify-center w-full"
+          : isRight
+          ? "justify-end"
+          : "justify-start"
       } select-none`}
     >
       <div
         className={`pointer-events-none flex flex-col items-center justify-center -space-y-16 sm:-space-y-24 ${
-          isRight
-            ? "-rotate-90 translate-x-[42%] sm:translate-x-[45%] lg:translate-x-[42%]"
-            : "rotate-90 -translate-x-[42%] sm:-translate-x-[45%] lg:-translate-x-[42%]"
-        } w-[650px] sm:w-[800px] lg:w-[950px] shrink-0 select-none`}
+          isBottom
+            ? "rotate-0 translate-y-[20%] w-full max-w-[1200px]"
+            : isRight
+            ? "-rotate-90 translate-x-[42%] sm:translate-x-[45%] lg:translate-x-[42%] w-[650px] sm:w-[800px] lg:w-[950px]"
+            : "rotate-90 -translate-x-[42%] sm:-translate-x-[45%] lg:-translate-x-[42%] w-[650px] sm:w-[800px] lg:w-[950px]"
+        } shrink-0 select-none`}
       >
         {/* Fire One Graphic */}
         <div className="w-full flex justify-center">
@@ -76,7 +83,11 @@ export default function FireSection({
     return (
       <div
         className={`pointer-events-none flex items-center ${
-          isRight ? "justify-end" : "justify-start"
+          isBottom
+            ? "justify-center w-full"
+            : isRight
+            ? "justify-end"
+            : "justify-start"
         } overflow-visible ${className}`}
       >
         {fireGraphicEl}

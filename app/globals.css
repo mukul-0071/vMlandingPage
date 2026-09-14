@@ -5,6 +5,11 @@
   --foreground: #F4F1E9;
 }
 
+html, body {
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   background: #0d0d0d;
   color: #F4F1E9;

@@ -7,6 +7,8 @@ import BrandsWorthFinding from "../brandsWorthFinding/BrandsWorthFinding";
 import ProofOfWork from "../proofOfWork/ProofOfWork";
 import Insights from "../insights/Insights";
 import ShareYourProblem from "../shareYourProblem/ShareYourProblem";
+import ThingsYouAreWondering from "../thingsYouAreWondering/ThingsYouAreWondering";
+import TestimonialSection from "../testimonialSection/TestimonialSection";
 import ContentAnimation from "../contentAnimation/ContentAnimation";
 
 const sections = [
@@ -18,6 +20,8 @@ const sections = [
   { id: "proof-of-work", Component: ProofOfWork },
   { id: "insights", Component: Insights },
   { id: "share-your-problem", Component: ShareYourProblem },
+  { id: "things-you-are-wondering", Component: ThingsYouAreWondering },
+  { id: "testimonial-section", Component: TestimonialSection },
 ];
 
 export default function HomePageContent() {
