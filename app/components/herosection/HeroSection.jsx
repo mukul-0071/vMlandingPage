@@ -38,16 +38,14 @@ export default function HeroSection() {
       </div>
 
       <div className="relative z-10 flex flex-col items-center max-w-6xl w-full text-center gap-8 mt-14">
-        <div className="flex flex-col items-center gap-4 max-w-6xl w-full">
-          <div className="flex flex-nowrap justify-center items-center gap-2 md:gap-4 text-[#F4F1E9] font-['Oswald'] font-bold text-4xl sm:text-6xl md:text-7xl lg:text-[5.25rem] leading-none uppercase tracking-tight whitespace-nowrap max-w-full overflow-hidden">
+          <div className="flex flex-nowrap justify-center items-center gap-1.5 sm:gap-4 text-[#F4F1E9] font-['Oswald'] font-bold text-[21px] xs:text-[26px] sm:text-5xl md:text-7xl lg:text-[5.25rem] leading-none uppercase tracking-tight whitespace-nowrap max-w-full px-2 overflow-hidden">
             <span>BRAND.</span>
             <span>CONTENT.</span>
             <span>ATTENTION.</span>
           </div>
-          <h2 className="text-[#F4F1E9] font-['Oswald'] font-bold text-xl sm:text-3xl md:text-2xl md:leading-9 tracking-[0.4em] sm:tracking-[0.55em] uppercase">
+          <h2 className="text-[#F4F1E9] font-['Oswald'] font-bold text-base sm:text-2xl md:text-2xl md:leading-9 tracking-[0.25em] sm:tracking-[0.55em] uppercase">
             ALL FROM ONE HOUSE
           </h2>
-        </div>
 
         <p className="text-[#F4F1E9] font-['Satoshi',sans-serif] font-normal text-base sm:text-lg md:text-xl leading-7 max-w-3xl text-center opacity-90">
           You bring the brand. We shape how it looks, what it says, and how it

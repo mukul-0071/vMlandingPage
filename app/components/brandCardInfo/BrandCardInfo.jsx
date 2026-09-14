@@ -152,23 +152,23 @@ export default function BrandCardInfo() {
         </div>
 
         {/* Right side typography & copy content */}
-        <div className="w-full lg:w-[642px] shrink-0 flex flex-col items-center lg:items-start gap-[40px] text-[#F4F1E9] max-w-[395px] lg:max-w-none mx-auto">
+        <div className="w-full lg:w-[642px] shrink-0 flex flex-col items-center lg:items-start gap-8 lg:gap-[40px] text-[#F4F1E9] max-w-full lg:max-w-none mx-auto px-2 sm:px-0">
           <div className="flex flex-col items-center lg:items-start gap-[10px] w-full">
-            <div className="flex flex-row justify-center lg:justify-start items-baseline gap-[10px] w-full uppercase font-['Oswald']">
-              <span className="text-[78px] font-[200] leading-[116px] tracking-tight">
+            <div className="flex flex-row justify-center lg:justify-start items-baseline gap-[10px] w-full uppercase font-['Oswald'] max-w-full overflow-hidden">
+              <span className="text-[38px] xs:text-[48px] sm:text-[64px] lg:text-[78px] font-[200] leading-none lg:leading-[116px] tracking-tight">
                 YOUR
               </span>
-              <span className="text-[78px] font-bold leading-[116px] tracking-tight">
+              <span className="text-[38px] xs:text-[48px] sm:text-[64px] lg:text-[78px] font-bold leading-none lg:leading-[116px] tracking-tight">
                 BRAND
               </span>
             </div>
 
-            <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-start gap-[10px] w-full px-0 sm:px-[49px] lg:px-0">
-              <span className="text-[32px] font-bold leading-[47px] tracking-tight uppercase font-['Oswald'] text-center lg:text-left whitespace-nowrap">
+            <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-start gap-2.5 sm:gap-[10px] w-full px-0 sm:px-[49px] lg:px-0">
+              <span className="text-[20px] xs:text-[24px] sm:text-[32px] font-bold leading-tight lg:leading-[47px] tracking-tight uppercase font-['Oswald'] text-center lg:text-left whitespace-nowrap">
                 DESERVES TO BE SEEN.
               </span>
-              <div className="bg-[#D3533D] px-[20px] sm:px-[30px] h-[47px] rounded-[6px] inline-flex items-center justify-center shrink-0">
-                <span className="text-[32px] font-bold leading-[47px] tracking-tight uppercase font-['Oswald'] text-[#F4F1E9] whitespace-nowrap">
+              <div className="bg-[#D3533D] px-3 sm:px-[30px] py-1 sm:py-0 h-auto sm:h-[47px] rounded-[6px] inline-flex items-center justify-center shrink-0">
+                <span className="text-[20px] xs:text-[24px] sm:text-[32px] font-bold leading-tight lg:leading-[47px] tracking-tight uppercase font-['Oswald'] text-[#F4F1E9] whitespace-nowrap">
                   AND TALKED ABOUT.
                 </span>
               </div>
@@ -209,12 +209,12 @@ export default function BrandCardInfo() {
           </div>
 
           <div className="flex flex-col items-center lg:items-start justify-center lg:justify-start gap-[5px] w-full uppercase font-['Oswald']">
-            <div className="flex items-center justify-center lg:justify-start gap-[10px] text-[28px] font-bold leading-[41px] h-[41px]">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-[10px] text-[20px] xs:text-[24px] sm:text-[28px] font-bold leading-tight sm:leading-[41px]">
               <span className="text-[#D3533D]">30 MINUTES</span>
-              <span className="text-[#F4F1E9] text-[18px] leading-[27px]">|</span>
+              <span className="text-[#F4F1E9] text-[16px] sm:text-[18px]">|</span>
               <span className="text-[#F4F1E9]">YOUR BRAND</span>
             </div>
-            <h4 className="text-[38px] font-bold leading-[40px] tracking-tight text-[#F4F1E9] text-center lg:text-left">
+            <h4 className="text-[26px] xs:text-[32px] sm:text-[38px] font-bold leading-tight sm:leading-[40px] tracking-tight text-[#F4F1E9] text-center lg:text-left">
               A LOT TO TALK ABOUT
             </h4>
           </div>
@@ -224,38 +224,38 @@ export default function BrandCardInfo() {
       {/* Bottom Section: Animated Stats Cards */}
       <div
         ref={statsRef}
-        className="w-full flex flex-col items-center justify-center gap-10 pt-6"
+        className="w-full flex flex-col items-center justify-center gap-10 pt-6 px-2 sm:px-0"
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-[40px] w-full max-w-[1312px]">
-          <div className="box-border flex flex-col items-center justify-center py-[30px] px-4 w-full h-[181px] bg-[#D3533D] border border-[#F4F1E9] rounded-[30px] gap-2 shadow-lg">
-            <span className="font-['Oswald'] font-bold text-[60px] leading-[89px] uppercase text-[#F4F1E9] drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]">
+          <div className="box-border flex flex-col items-center justify-center py-[24px] sm:py-[30px] px-6 w-full h-auto min-h-[170px] bg-[#D3533D] border border-[#F4F1E9] rounded-[24px] sm:rounded-[30px] gap-2 shadow-lg">
+            <span className="font-['Oswald'] font-bold text-[48px] sm:text-[60px] leading-none sm:leading-[89px] uppercase text-[#F4F1E9] drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]">
               {counts.creators}+
             </span>
-            <span className="font-['Satoshi',sans-serif] font-medium text-[22px] leading-[30px] text-[#F4F1E9] text-center">
+            <span className="font-['Satoshi',sans-serif] font-medium text-[18px] sm:text-[22px] leading-[26px] sm:leading-[30px] text-[#F4F1E9] text-center">
               Creators On Call
             </span>
           </div>
 
-          <div className="box-border flex flex-col items-center justify-center py-[30px] px-4 w-full h-[181px] bg-[#D3533D] border border-[#F4F1E9] rounded-[30px] gap-2 shadow-lg">
-            <span className="font-['Oswald'] font-bold text-[60px] leading-[89px] uppercase text-[#F4F1E9] drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]">
+          <div className="box-border flex flex-col items-center justify-center py-[24px] sm:py-[30px] px-6 w-full h-auto min-h-[170px] bg-[#D3533D] border border-[#F4F1E9] rounded-[24px] sm:rounded-[30px] gap-2 shadow-lg">
+            <span className="font-['Oswald'] font-bold text-[48px] sm:text-[60px] leading-none sm:leading-[89px] uppercase text-[#F4F1E9] drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]">
               {counts.brands}+
             </span>
-            <span className="font-['Satoshi',sans-serif] font-medium text-[22px] leading-[30px] text-[#F4F1E9] text-center">
+            <span className="font-['Satoshi',sans-serif] font-medium text-[18px] sm:text-[22px] leading-[26px] sm:leading-[30px] text-[#F4F1E9] text-center">
               Brands Worked With
             </span>
           </div>
 
-          <div className="box-border flex flex-col items-center justify-center py-[30px] px-4 w-full h-[181px] bg-[#D3533D] border border-[#F4F1E9] rounded-[30px] gap-2 shadow-lg">
-            <span className="font-['Oswald'] font-bold text-[60px] leading-[89px] uppercase text-[#F4F1E9] drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]">
+          <div className="box-border flex flex-col items-center justify-center py-[24px] sm:py-[30px] px-6 w-full h-auto min-h-[170px] bg-[#D3533D] border border-[#F4F1E9] rounded-[24px] sm:rounded-[30px] gap-2 shadow-lg">
+            <span className="font-['Oswald'] font-bold text-[48px] sm:text-[60px] leading-none sm:leading-[89px] uppercase text-[#F4F1E9] drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]">
               {counts.industries}+
             </span>
-            <span className="font-['Satoshi',sans-serif] font-medium text-[22px] leading-[30px] text-[#F4F1E9] text-center">
+            <span className="font-['Satoshi',sans-serif] font-medium text-[18px] sm:text-[22px] leading-[26px] sm:leading-[30px] text-[#F4F1E9] text-center">
               Industries Covered
             </span>
           </div>
         </div>
 
-        <p className="w-full font-['Satoshi',sans-serif] font-normal text-[16px] leading-[22px] text-center text-[#F4F1E9] sm:whitespace-nowrap">
+        <p className="w-full font-['Satoshi',sans-serif] font-normal text-[16px] leading-[22px] text-center text-[#F4F1E9] sm:whitespace-nowrap px-4">
           We take on only a few new brands each month, so the work stays
           directed, not diluted.
         </p>
