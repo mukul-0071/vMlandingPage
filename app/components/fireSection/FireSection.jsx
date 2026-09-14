@@ -21,7 +21,7 @@ export default function FireSection({
     const ctx = gsap.context(() => {
       // Up and down movement along screen Y-axis
       gsap.to(containerRef.current, {
-        y: -50,
+        y: -90,
         duration: 2.8,
         ease: "sine.inOut",
         repeat: -1,
