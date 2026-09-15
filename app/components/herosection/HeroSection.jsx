@@ -100,7 +100,7 @@ export default function HeroSection() {
         ref={contentRef}
         className="relative z-10 flex flex-col items-center max-w-6xl w-full text-center gap-2 sm:gap-2 mt-14"
       >
-        {/* Interactive Canvas Particle Morphing Text for BRAND. CONTENT. ATTENTION. */}
+        {/* Text for BRAND. CONTENT. ATTENTION. */}
         <ParticleTextHover />
 
         {/* Wave Entrance Drop Animation for ALL FROM ONE HOUSE */}
