@@ -17,20 +17,30 @@ export default function FireSection({
   useEffect(() => {
     if (!containerRef.current) return;
 
-    // Smooth continuous vertical up-and-down floating & gentle flickering animation
     const ctx = gsap.context(() => {
-      // Up and down movement along screen Y-axis
-      gsap.to(containerRef.current, {
-        y: -90,
-        duration: 2.8,
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true,
-      });
+      if (position === "bottom") {
+        // Horizontal left-and-right movement for bottom fire section
+        gsap.to(containerRef.current, {
+          x: 90,
+          duration: 3.2,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+        });
+      } else {
+        // Vertical up-and-down floating for left and right side fire sections
+        gsap.to(containerRef.current, {
+          y: -90,
+          duration: 2.8,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+        });
+      }
     });
 
     return () => ctx.revert();
-  }, []);
+  }, [position]);
 
   const isRight = position === "right";
   const isBottom = position === "bottom";

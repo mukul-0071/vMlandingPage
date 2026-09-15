@@ -5,6 +5,7 @@ import Image from "next/image";
 import FireSection from "../fireSection/FireSection";
 import SubtractSvg from "../../../assets/icons/Subtract.svg";
 import rectangleSvg from "../../../assets/icons/rectangle.svg";
+import workWatermarkSvg from "../../../assets/icons/workWatermark.svg";
 
 export function BaseLayer({ children, className = "" }) {
   return (
@@ -14,6 +15,15 @@ export function BaseLayer({ children, className = "" }) {
       {/* rendered on BaseLayer aligned to SecondSection (Right side) */}
       <div className="absolute top-[3100px] sm:top-[2600px] lg:top-[2700px] right-0 pointer-events-none z-0">
         <FireSection position="right" />
+      </div>
+
+      {/* Work Watermark SVG rendered on BaseLayer (Centered between first right and second left fire animation) */}
+      <div className="absolute top-[3100px] sm:top-[2550px] lg:top-[3000px] left-1/2 -translate-x-1/2 pointer-events-none z-0 w-full flex justify-center">
+        <Image
+          src={workWatermarkSvg}
+          alt="Work Watermark Accent"
+          className="w-[600px] sm:w-[750px] lg:w-[852px] h-auto object-contain pointer-events-none mix-blend-color-dodge"
+        />
       </div>
 
       {/*  rendered on BaseLayer (Left side) */}
@@ -39,7 +49,7 @@ export function BaseLayer({ children, className = "" }) {
       </div>
 
       {/* Rectangle SVG on BaseLayer behind Proof of Work Card 1 area */}
-      <div className="absolute top-[9850px] sm:top-[7350px] lg:top-[8060px] left-[5%] sm:left-[10%] lg:left-[14%] pointer-events-none z-0">
+      <div className="absolute top-[9800px] sm:top-[7350px] lg:top-[7000px] left-[5%] sm:left-[10%] lg:left-[14%] pointer-events-none z-0">
         <Image
           src={rectangleSvg}
           alt="Rectangle Accent"
@@ -50,7 +60,7 @@ export function BaseLayer({ children, className = "" }) {
         <FireSection position="right" />
       </div>
       {/* Additional Bottom FireSection for Testimonial Section area */}
-      <div className="absolute top-[15500px] sm:top-[10200px] lg:top-[11950px] left-1/2 -translate-x-1/2 w-full flex justify-center pointer-events-none z-0">
+      <div className="absolute top-[15450px] sm:top-[10200px] lg:top-[11800px] left-1/2 -translate-x-1/2 w-full flex justify-center pointer-events-none z-0">
         <FireSection position="bottom" />
       </div>
       {children}
@@ -65,7 +75,7 @@ export function DottedLayer({ children, className = "" }) {
       style={{
         backgroundImage:
           "radial-gradient(circle, transparent 0, transparent 1.5px, #000000 1.5px)",
-        backgroundSize: "34px 34px",
+        backgroundSize: "24px 24px",
       }}
     >
       {children}
@@ -77,7 +87,9 @@ export default function MainLayerBg({ children, className = "" }) {
   return (
     <div className={`relative w-full overflow-hidden ${className}`}>
       <BaseLayer>
-        <DottedLayer>{children}</DottedLayer>
+        <DottedLayer>
+        {children}
+        </DottedLayer>
       </BaseLayer>
     </div>
   );
