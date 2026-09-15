@@ -21,20 +21,6 @@ export default function HeroSection() {
     if (!heroRef.current || !contentRef.current) return;
 
     const ctx = gsap.context(() => {
-      // 1. Scroll parallax for content
-      gsap.to(contentRef.current, {
-        y: -100,
-        opacity: 0.3,
-        scale: 0.95,
-        ease: "none",
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 0.5,
-        },
-      });
-
       // 2. Wave entrance animation for "ALL FROM ONE HOUSE" letters dropping from top ONCE on load
       const validLetters = subHeadingLettersRef.current.filter(Boolean);
       if (validLetters.length > 0) {
