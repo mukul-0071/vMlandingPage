@@ -13,13 +13,13 @@ export default function ParticleTextHover() {
 
     let animationFrameId;
     let particles = [];
-    let mouse = { x: -9999, y: -9999, radius: 55 };
+    let mouse = { x: -9999, y: -9999, radius: 65 };
 
     const words = ["BRAND.", "CONTENT.", "ATTENTION."];
 
     const initParticles = () => {
       const rect = canvas.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const width = rect.width * dpr;
       const height = rect.height * dpr;
 
@@ -30,31 +30,49 @@ export default function ParticleTextHover() {
 
       ctx.clearRect(0, 0, width, height);
 
-      // Determine font size based on canvas width
-      let fontSize = Math.min(width / 13.5, 84 * dpr);
-      if (rect.width < 480) fontSize = Math.min(width / 11, 30 * dpr);
-      else if (rect.width < 768) fontSize = Math.min(width / 12, 48 * dpr);
+      const isMobile = rect.width < 640;
 
-      ctx.font = `700 ${fontSize}px "Oswald", sans-serif`;
+      let fontSize;
+      if (isMobile) {
+        // Mobile: column stacked format, font size target ~84px scaled nicely to mobile container width
+        fontSize = Math.min(width / 4.4, 84 * dpr);
+      } else {
+        // Desktop / Web: horizontal single row
+        fontSize = Math.min(width / 13.5, 84 * dpr);
+      }
+
+      ctx.font = `700 ${fontSize}px "Oswald", "Arial Black", sans-serif`;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-
-      const fullText = words.join(" ");
       ctx.fillStyle = "#A9918D";
-      ctx.fillText(fullText, width / 2, height / 2);
+
+      if (isMobile) {
+        // Column layout for mobile
+        const lineHeight = fontSize * 1.05;
+        const totalHeight = lineHeight * words.length;
+        const startY = (height - totalHeight) / 2 + lineHeight / 2;
+
+        words.forEach((word, i) => {
+          ctx.fillText(word, width / 2, startY + i * lineHeight);
+        });
+      } else {
+        // Horizontal layout for desktop
+        const fullText = words.join(" ");
+        ctx.fillText(fullText, width / 2, height / 2);
+      }
 
       const imageData = ctx.getImageData(0, 0, width, height);
       const data = imageData.data;
       particles = [];
 
-      const step = Math.max(2, Math.floor(2.5 * dpr));
+      const step = Math.max(1, Math.floor(1.6 * dpr));
 
       for (let y = 0; y < height; y += step) {
         for (let x = 0; x < width; x += step) {
           const index = (y * width + x) * 4;
           const alpha = data[index + 3];
 
-          if (alpha > 120) {
+          if (alpha > 40) {
             particles.push({
               x: x,
               y: y,
@@ -62,7 +80,7 @@ export default function ParticleTextHover() {
               originY: y,
               vx: 0,
               vy: 0,
-              size: (rect.width < 640 ? 1.2 : 1.6) * dpr,
+              size: (isMobile ? 1.6 : 1.6) * dpr,
               color: "#A9918D",
               density: Math.random() * 25 + 8,
             });
@@ -77,14 +95,34 @@ export default function ParticleTextHover() {
       initParticles();
     };
 
-    initParticles();
+    if (document.fonts) {
+      document.fonts.ready.then(initParticles);
+    } else {
+      initParticles();
+    }
+
+    const resizeObserver = new ResizeObserver(() => {
+      initParticles();
+    });
+    resizeObserver.observe(canvas);
+
     window.addEventListener("resize", handleResize);
 
-    const handleMouseMove = (e) => {
+    const updatePointerPos = (clientX, clientY) => {
       const rect = canvas.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
-      mouse.x = (e.clientX - rect.left) * dpr;
-      mouse.y = (e.clientY - rect.top) * dpr;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      mouse.x = (clientX - rect.left) * dpr;
+      mouse.y = (clientY - rect.top) * dpr;
+    };
+
+    const handleMouseMove = (e) => {
+      updatePointerPos(e.clientX, e.clientY);
+    };
+
+    const handleTouchMove = (e) => {
+      if (e.touches && e.touches[0]) {
+        updatePointerPos(e.touches[0].clientX, e.touches[0].clientY);
+      }
     };
 
     const handleMouseLeave = () => {
@@ -93,12 +131,14 @@ export default function ParticleTextHover() {
     };
 
     window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
     canvas.addEventListener("mouseleave", handleMouseLeave);
+    canvas.addEventListener("touchend", handleMouseLeave);
 
     const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const maxDistance = mouse.radius * dpr;
 
       for (let i = 0; i < particles.length; i++) {
@@ -142,15 +182,20 @@ export default function ParticleTextHover() {
     render();
 
     return () => {
+      resizeObserver.disconnect();
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("mousemove", handleMouseMove);
-      if (canvas) canvas.removeEventListener("mouseleave", handleMouseLeave);
+      window.removeEventListener("touchmove", handleTouchMove);
+      if (canvas) {
+        canvas.removeEventListener("mouseleave", handleMouseLeave);
+        canvas.removeEventListener("touchend", handleMouseLeave);
+      }
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
   return (
-    <div className="relative w-full max-w-[1200px] h-[60px] sm:h-[100px] md:h-[130px] flex items-center justify-center">
+    <div className="relative w-full max-w-[1200px] h-[340px] xs:h-[360px] sm:h-[120px] md:h-[130px] flex items-center justify-center">
       <canvas ref={canvasRef} className="w-full h-full cursor-pointer z-20" />
     </div>
   );
