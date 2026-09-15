@@ -6,6 +6,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Header from "../header/Header";
 import Button from "../button/Button";
 
+import ParticleTextHover from "./ParticleTextHover";
+
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
@@ -13,11 +15,13 @@ if (typeof window !== "undefined") {
 export default function HeroSection() {
   const heroRef = useRef(null);
   const contentRef = useRef(null);
+  const subHeadingLettersRef = useRef([]);
 
   useEffect(() => {
     if (!heroRef.current || !contentRef.current) return;
 
     const ctx = gsap.context(() => {
+      // 1. Scroll parallax for content
       gsap.to(contentRef.current, {
         y: -100,
         opacity: 0.3,
@@ -30,10 +34,32 @@ export default function HeroSection() {
           scrub: 0.5,
         },
       });
+
+      // 2. Wave entrance animation for "ALL FROM ONE HOUSE" letters dropping from top ONCE on load
+      const validLetters = subHeadingLettersRef.current.filter(Boolean);
+      if (validLetters.length > 0) {
+        gsap.set(validLetters, {
+          y: -50,
+          opacity: 0,
+          scale: 0.8,
+        });
+
+        gsap.to(validLetters, {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.7,
+          stagger: 0.03,
+          ease: "back.out(1.5)",
+          delay: 0.2,
+        });
+      }
     }, heroRef);
 
     return () => ctx.revert();
   }, []);
+
+  const subHeadingText = "ALL FROM ONE HOUSE";
 
   return (
     <section
@@ -72,16 +98,24 @@ export default function HeroSection() {
 
       <div
         ref={contentRef}
-        className="relative z-10 flex flex-col items-center max-w-6xl w-full text-center gap-8 mt-14"
+        className="relative z-10 flex flex-col items-center max-w-6xl w-full text-center gap-2 sm:gap-2 mt-14"
       >
-          <div className="flex flex-nowrap justify-center items-center gap-1.5 sm:gap-4 text-[#F4F1E9] font-['Oswald'] font-bold text-[21px] xs:text-[26px] sm:text-5xl md:text-7xl lg:text-[5.25rem] leading-none uppercase tracking-tight whitespace-nowrap max-w-full px-2 overflow-hidden">
-            <span>BRAND.</span>
-            <span>CONTENT.</span>
-            <span>ATTENTION.</span>
-          </div>
-          <h2 className="text-[#F4F1E9] font-['Oswald'] font-bold text-base sm:text-2xl md:text-2xl md:leading-9 tracking-[0.25em] sm:tracking-[0.55em] uppercase">
-            ALL FROM ONE HOUSE
-          </h2>
+        {/* Interactive Canvas Particle Morphing Text for BRAND. CONTENT. ATTENTION. */}
+        <ParticleTextHover />
+
+        {/* Wave Entrance Drop Animation for ALL FROM ONE HOUSE */}
+        <h2 className="text-[#F4F1E9] font-['Oswald'] font-bold text-base sm:text-2xl md:text-2xl md:leading-9 tracking-[0.25em] sm:tracking-[0.55em] uppercase flex flex-wrap justify-center overflow-hidden py-1">
+          {subHeadingText.split("").map((char, index) => (
+            <span
+              key={index}
+              ref={(el) => (subHeadingLettersRef.current[index] = el)}
+              className="inline-block transition-all"
+              style={{ minWidth: char === " " ? "0.4em" : "auto" }}
+            >
+              {char === " " ? "\u00A0" : char}
+            </span>
+          ))}
+        </h2>
 
         <p className="text-[#F4F1E9] font-['Satoshi',sans-serif] font-normal text-base sm:text-lg md:text-xl leading-7 max-w-3xl text-center opacity-90">
           You bring the brand. We shape how it looks, what it says, and how it

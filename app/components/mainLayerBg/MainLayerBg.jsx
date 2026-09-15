@@ -60,7 +60,7 @@ export function BaseLayer({ children, className = "" }) {
         <FireSection position="right" />
       </div>
       {/* Additional Bottom FireSection for Testimonial Section area */}
-      <div className="absolute top-[15450px] sm:top-[10200px] lg:top-[11800px] left-1/2 -translate-x-1/2 w-full flex justify-center pointer-events-none z-0">
+      <div className="absolute bottom-[-100px] left-1/2 -translate-x-1/2 w-full flex justify-center pointer-events-none z-0">
         <FireSection position="bottom" />
       </div>
       {children}

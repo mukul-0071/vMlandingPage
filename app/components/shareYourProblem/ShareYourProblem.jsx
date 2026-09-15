@@ -11,33 +11,36 @@ if (typeof window !== "undefined") {
 
 export default function ShareYourProblem() {
   const sectionRef = useRef(null);
-  const leftTitleRef = useRef(null);
+  const wordsRef = useRef([]);
   const rightContentRef = useRef(null);
 
   useEffect(() => {
     if (!sectionRef.current) return;
 
-    const ctx = gsap.context(() => {
-      // Smooth scale, position & opacity scroll animation for left side heading
-      if (leftTitleRef.current) {
-        gsap.set(leftTitleRef.current, {
-          opacity: 0,
-          scale: 0.6,
-          transformOrigin: "left center",
-        });
+    const validWords = wordsRef.current.filter(Boolean);
+    if (validWords.length === 0) return;
 
-        gsap.to(leftTitleRef.current, {
-          opacity: 1,
-          scale: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: leftTitleRef.current,
-            start: "top 85%",
-            end: "top 45%",
-            scrub: 0.5,
-          },
-        });
-      }
+    const ctx = gsap.context(() => {
+      // Word-by-word blur-to-clear scroll reveal animation for left heading
+      gsap.set(validWords, {
+        filter: "blur(14px)",
+        opacity: 0.15,
+        y: 10,
+      });
+
+      gsap.to(validWords, {
+        filter: "blur(0px)",
+        opacity: 1,
+        y: 0,
+        stagger: 0.15,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          end: "top 35%",
+          scrub: 0.5,
+        },
+      });
 
       // Smooth position & opacity scroll animation for right side content
       if (rightContentRef.current) {
@@ -65,17 +68,36 @@ export default function ShareYourProblem() {
     return () => ctx.revert();
   }, []);
 
+  const titleWords = [
+    { text: "WANT ", isHighlight: false },
+    { text: "TO ", isHighlight: false },
+    { text: "SHARE ", isHighlight: true },
+    { text: "YOUR ", isHighlight: true },
+    { text: "PROBLEM ", isHighlight: true },
+    { text: "WITHOUT ", isHighlight: false },
+    { text: "COMMITMENT?", isHighlight: false },
+  ];
+
   return (
     <section
       ref={sectionRef}
       className="relative w-full max-w-[1512px] mx-auto px-4 sm:px-12 lg:px-20 py-16 lg:py-24 flex flex-col gap-12 lg:gap-16 text-[#F4F1E9] overflow-hidden"
     >
       <div className="w-full max-w-[1312px] mx-auto flex flex-col lg:flex-row items-start justify-between gap-10 lg:gap-16">
-        {/* Left Side: Large Title with Smooth Position Scroll Animation */}
-        <div ref={leftTitleRef} className="w-full lg:w-[616px] shrink-0">
-          <h2 className="font-['Oswald'] font-bold text-[40px] sm:text-[56px] lg:text-[68px] leading-[52px] sm:leading-[72px] lg:leading-[101px] uppercase text-[#F4F1E9]">
-            WANT TO <span className="text-[#D3533D]">SHARE YOUR</span>{" "}
-            <span className="text-[#D3533D]">PROBLEM</span> WITHOUT COMMITMENT?
+        {/* Left Side: Large Title with Word-by-Word Scroll Blur-to-Normal Reveal */}
+        <div className="w-full lg:w-[616px] shrink-0">
+          <h2 className="font-['Oswald'] font-bold text-[40px] sm:text-[56px] lg:text-[68px] leading-[52px] sm:leading-[72px] lg:leading-[101px] uppercase text-[#F4F1E9] flex flex-wrap gap-x-3 sm:gap-x-4 lg:gap-x-5">
+            {titleWords.map((item, index) => (
+              <span
+                key={index}
+                ref={(el) => (wordsRef.current[index] = el)}
+                className={`inline-block transition-all duration-300 ${
+                  item.isHighlight ? "text-[#D3533D]" : "text-[#F4F1E9]"
+                }`}
+              >
+                {item.text}
+              </span>
+            ))}
           </h2>
         </div>
 

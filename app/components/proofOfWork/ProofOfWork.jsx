@@ -24,9 +24,11 @@ export default function ProofOfWork() {
 
       if (isDesktop) {
         // Desktop: Cards roll like a wheel from left into position on scroll
-        const cards = [card1Ref.current, card2Ref.current, card3Ref.current].filter(
-          Boolean,
-        );
+        const cards = [
+          card1Ref.current,
+          card2Ref.current,
+          card3Ref.current,
+        ].filter(Boolean);
 
         // Target final rotation tilt angles matching original design
         const targetRotations = [3.5, -2, 5];
@@ -166,7 +168,10 @@ export default function ProofOfWork() {
         </div>
       </div>
 
-      <div ref={btnRef} className="w-full max-w-[1312px] mx-auto flex justify-center pt-6">
+      <div
+        ref={btnRef}
+        className="w-full max-w-[1312px] mx-auto flex justify-center pt-6"
+      >
         <Button showArrow={true}>Book A Call</Button>
       </div>
     </section>

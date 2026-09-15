@@ -1,7 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Button from "../button/Button";
 import fbSvg from "../../../assets/icons/fb.svg";
 import youtubeSvg from "../../../assets/icons/youtube.svg";
@@ -9,9 +11,59 @@ import xSvg from "../../../assets/icons/x.svg";
 import instaSvg from "../../../assets/icons/insta.svg";
 import linkedinSvg from "../../../assets/icons/linkedin.svg";
 
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 export default function TestimonialSection() {
+  const sectionRef = useRef(null);
+  const wordsRef = useRef([]);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const validWords = wordsRef.current.filter(Boolean);
+    if (validWords.length === 0) return;
+
+    const ctx = gsap.context(() => {
+      // Set initial blur & opacity for each word
+      gsap.set(validWords, {
+        filter: "blur(14px)",
+        opacity: 0.15,
+        y: 10,
+      });
+
+      // Animate words one by one to clear normal state on scroll
+      gsap.to(validWords, {
+        filter: "blur(0px)",
+        opacity: 1,
+        y: 0,
+        stagger: 0.25,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 75%",
+          end: "top 30%",
+          scrub: 0.5,
+        },
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
+
+  const titleWords = [
+    { text: "You ", isHighlight: false },
+    { text: "Bring ", isHighlight: false },
+    { text: "the ", isHighlight: false },
+    { text: "Brand.", isHighlight: true },
+  ];
+
   return (
-    <section className="relative w-full max-w-[1511px] mx-auto px-4 sm:px-12 lg:px-20 py-20 lg:py-30 flex flex-col items-center gap-12 text-[#F4F1E9] isolation-isolate overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="relative w-full max-w-[1511px] mx-auto px-4 sm:px-12 lg:px-20 py-20 lg:py-30 flex flex-col items-center gap-12 text-[#F4F1E9] isolation-isolate overflow-hidden"
+    >
       {/* Large Decorative Quotes */}
       {/* Left Quote */}
       <span className="absolute left-[5%] sm:left-[10%] lg:left-[14%] top-[40px] sm:top-[60px] font-['Instrument_Serif',serif] font-normal text-[140px] sm:text-[180px] lg:text-[200px] leading-[0.3] text-[#662920] select-none pointer-events-none z-0">
@@ -25,9 +77,19 @@ export default function TestimonialSection() {
 
       {/* Title & Subtitle Container (Frame 65) */}
       <div className="relative z-10 w-full max-w-[1311px] mx-auto flex flex-col items-center gap-[18px] text-center">
-        {/* Main Heading */}
-        <h2 className="font-['Oswald'] font-semibold text-[48px] sm:text-[72px] lg:text-[97px] leading-[1.1] uppercase tracking-tight text-[#F4F1E9]">
-          You Bring the <span className="text-[#D3533D]">Brand.</span>
+        {/* Main Heading with Word-by-Word Scroll Blur-to-Normal Reveal */}
+        <h2 className="font-['Oswald'] font-semibold text-[48px] sm:text-[72px] lg:text-[97px] leading-[1.1] uppercase tracking-tight text-[#F4F1E9] flex flex-wrap justify-center gap-x-3 sm:gap-x-4 lg:gap-x-5">
+          {titleWords.map((item, index) => (
+            <span
+              key={index}
+              ref={(el) => (wordsRef.current[index] = el)}
+              className={`inline-block transition-all duration-300 ${
+                item.isHighlight ? "text-[#D3533D]" : "text-[#F4F1E9]"
+              }`}
+            >
+              {item.text}
+            </span>
+          ))}
         </h2>
 
         {/* Sub-heading */}
