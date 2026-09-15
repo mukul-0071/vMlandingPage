@@ -1,12 +1,45 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Header from "../header/Header";
 import Button from "../button/Button";
 
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 export default function HeroSection() {
+  const heroRef = useRef(null);
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    if (!heroRef.current || !contentRef.current) return;
+
+    const ctx = gsap.context(() => {
+      gsap.to(contentRef.current, {
+        y: -100,
+        opacity: 0.3,
+        scale: 0.95,
+        ease: "none",
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 0.5,
+        },
+      });
+    }, heroRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="relative w-full min-h-[110vh] flex flex-col justify-center items-center overflow-hidden py-24 px-4 bg-[#0d0d0d]">
+    <section
+      ref={heroRef}
+      className="relative w-full h-full min-h-screen flex flex-col justify-center items-center overflow-hidden py-20 px-4 bg-[#0d0d0d]"
+    >
       <Header />
 
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden bg-[#101010]">
@@ -37,7 +70,10 @@ export default function HeroSection() {
         ></div>
       </div>
 
-      <div className="relative z-10 flex flex-col items-center max-w-6xl w-full text-center gap-8 mt-14">
+      <div
+        ref={contentRef}
+        className="relative z-10 flex flex-col items-center max-w-6xl w-full text-center gap-8 mt-14"
+      >
           <div className="flex flex-nowrap justify-center items-center gap-1.5 sm:gap-4 text-[#F4F1E9] font-['Oswald'] font-bold text-[21px] xs:text-[26px] sm:text-5xl md:text-7xl lg:text-[5.25rem] leading-none uppercase tracking-tight whitespace-nowrap max-w-full px-2 overflow-hidden">
             <span>BRAND.</span>
             <span>CONTENT.</span>

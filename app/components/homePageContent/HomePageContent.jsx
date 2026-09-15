@@ -28,9 +28,7 @@ export default function HomePageContent() {
   return (
     <div className="flex flex-col gap-12 sm:gap-14">
       {sections.map(({ id, Component }) => (
-        <ContentAnimation key={id}>
-          <Component />
-        </ContentAnimation>
+        <Component key={id} />
       ))}
     </div>
   );

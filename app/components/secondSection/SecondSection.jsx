@@ -3,12 +3,22 @@
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Button from "../button/Button";
 
 import homePageImageOne from "../../../assets/icons/homePageImageOne.svg";
 import homePageImageTwo from "../../../assets/icons/homePageImageTwo.svg";
 
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 export default function SecondSection() {
+  const sectionRef = useRef(null);
+  const headerRef = useRef(null);
+  const imageContainerRef = useRef(null);
+  const contentRef = useRef(null);
+
   const badgeBoxRef = useRef(null);
   const badgeTrackRef = useRef(null);
   const directRef = useRef(null);
@@ -32,90 +42,79 @@ export default function SecondSection() {
       const directW = Math.max(directRef.current?.offsetWidth || 0, 190);
       const produceW = Math.max(produceRef.current?.offsetWidth || 0, 250);
 
-      // Set initial states
+      // Set initial states for badge & images
       gsap.set(badgeBoxRef.current, { width: directW });
       gsap.set(badgeTrackRef.current, { yPercent: 0 });
       gsap.set(imageOneRef.current, { opacity: 1 });
       gsap.set(imageTwoRef.current, { opacity: 0 });
 
-      const tl = gsap.timeline({ repeat: -1 });
+      // Scroll-driven pinned sequence:
+      // 1. Pins when section reaches top of screen cleanly
+      // 2. Scrolling down scrubs DIRECT -> PRODUCE + Image 1 -> Image 2 1:1 with scroll position
+      // 3. Scrolling back up scrubs PRODUCE -> DIRECT + Image 2 -> Image 1 smoothly
+      // 4. pinSpacing: true reserves full vertical space so next component NEVER overlaps during animation
+      const mainTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "+=100%",
+          pin: true,
+          pinSpacing: true,
+          scrub: 0.5, // tight 1:1 scrub sync with finger/wheel scroll
+          anticipatePin: 1,
+        },
+      });
 
-      tl.to({}, { duration: 3 }) // Hold "DIRECT" for 3 seconds
-
-        // Step 1: Upward slide to PRODUCE + animate width to produceW + Image 1 -> Image 2
+      mainTl
+        // 1:1 Scroll Scrub: DIRECT -> PRODUCE, width expand & Image 1 -> Image 2
         .to(
           badgeTrackRef.current,
           {
             yPercent: -33.3333,
-            duration: 1.0,
-            ease: "power2.inOut",
+            ease: "none",
           },
-          "step1",
+          "switch",
         )
         .to(
           badgeBoxRef.current,
           {
             width: produceW,
-            duration: 1.0,
-            ease: "power2.inOut",
+            ease: "none",
           },
-          "step1",
+          "switch",
         )
         .to(
           imageOneRef.current,
-          { opacity: 0, duration: 1.0, ease: "power2.inOut" },
-          "step1",
+          {
+            opacity: 0,
+            ease: "none",
+          },
+          "switch",
         )
         .to(
           imageTwoRef.current,
-          { opacity: 1, duration: 1.0, ease: "power2.inOut" },
-          "step1",
-        )
-
-        .to({}, { duration: 3 }) // Hold "PRODUCE" for 3 seconds
-
-        // Step 2: Upward slide to DIRECT + animate width to directW + Image 2 -> Image 1
-        .to(
-          badgeTrackRef.current,
           {
-            yPercent: -66.6666,
-            duration: 1.0,
-            ease: "power2.inOut",
+            opacity: 1,
+            ease: "none",
           },
-          "step2",
-        )
-        .to(
-          badgeBoxRef.current,
-          {
-            width: directW,
-            duration: 1.0,
-            ease: "power2.inOut",
-          },
-          "step2",
-        )
-        .to(
-          imageTwoRef.current,
-          { opacity: 0, duration: 1.0, ease: "power2.inOut" },
-          "step2",
-        )
-        .to(
-          imageOneRef.current,
-          { opacity: 1, duration: 1.0, ease: "power2.inOut" },
-          "step2",
-        )
-
-        // Instantly reset track back to 0% for infinite upward loop
-        .set(badgeTrackRef.current, { yPercent: 0 });
+          "switch",
+        );
     });
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section className="relative w-full max-w-[1512px] mx-auto px-6 sm:px-12 lg:px-20 py-16 lg:py-24 text-[#F4F1E9] overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="relative w-full max-w-[1512px] mx-auto px-6 sm:px-12 lg:px-20 min-h-screen flex flex-col justify-center py-12 lg:py-20 text-[#F4F1E9] overflow-hidden"
+    >
       <div className="w-full grid grid-cols-1 lg:grid-cols-[616px_1fr] items-center lg:items-start justify-between gap-8 lg:gap-x-16 lg:gap-y-10">
         {/* Item 1: Header Row & YOU JUST SHOW UP (Order 1 on Mobile, Right Column Row 1 on Desktop) */}
-        <div className="order-1 lg:col-start-2 lg:row-start-1 flex flex-col items-center lg:items-start text-center lg:text-left gap-2 w-full max-w-[395px] lg:max-w-none mx-auto">
+        <div
+          ref={headerRef}
+          className="order-1 lg:col-start-2 lg:row-start-1 flex flex-col items-center lg:items-start text-center lg:text-left gap-2 w-full max-w-[395px] lg:max-w-none mx-auto"
+        >
           <div className="flex flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 font-['Oswald'] uppercase w-full">
             <span className="text-[60px] lg:text-[78px] font-[200] leading-none tracking-tight shrink-0">
               WE
@@ -156,7 +155,10 @@ export default function SecondSection() {
         </div>
 
         {/* Item 2: Framed Image (Order 2 on Mobile - directly below YOU JUST SHOW UP, Left Column Rows 1 & 2 on Desktop) */}
-        <div className="order-2 lg:col-start-1 lg:row-start-1 lg:row-span-2 w-full max-w-[395px] lg:max-w-[616px] mx-auto shrink-0 relative p-0 my-4 lg:my-0">
+        <div
+          ref={imageContainerRef}
+          className="order-2 lg:col-start-1 lg:row-start-1 lg:row-span-2 w-full max-w-[395px] lg:max-w-[616px] mx-auto shrink-0 relative p-0 my-4 lg:my-0"
+        >
           {/* Button-Style Extended Corner Gradient Lines */}
           <span className="absolute left-0 -top-8 w-[1px] h-[40px] pointer-events-none z-20 bg-gradient-to-t from-[#FFFFFF] to-transparent"></span>
           <span className="absolute -left-8 top-0 w-[40px] h-[1px] pointer-events-none z-20 bg-gradient-to-l from-[#FFFFFF] to-transparent"></span>
@@ -194,7 +196,10 @@ export default function SecondSection() {
         </div>
 
         {/* Item 3: Body Copy, Bullets & Button (Order 3 on Mobile - below image, Right Column Row 2 on Desktop) */}
-        <div className="order-3 lg:col-start-2 lg:row-start-2 w-full lg:w-[694px] max-w-[395px] lg:max-w-none mx-auto shrink-0 flex flex-col items-start gap-8 lg:gap-10">
+        <div
+          ref={contentRef}
+          className="order-3 lg:col-start-2 lg:row-start-2 w-full lg:w-[694px] max-w-[395px] lg:max-w-none mx-auto shrink-0 flex flex-col items-start gap-8 lg:gap-10"
+        >
           {/* Copy Details: You & We */}
           <div className="flex flex-col gap-5 w-full font-['Satoshi',sans-serif]">
             <div className="flex flex-col gap-1">

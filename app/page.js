@@ -9,9 +9,16 @@ export default function Home() {
     <>
       <SplashScreen />
       <MainLayerBg>
-        <HeroSection />
-        <InfiniteMarquee />
-        <HomePageContent />
+        {/* Sticky wrapper for HeroSection */}
+        <div className="sticky top-0 h-screen w-full z-0 overflow-hidden">
+          <HeroSection />
+        </div>
+
+        {/* Content layer that slides UP over the HeroSection as user scrolls */}
+        <div className="relative z-10 shadow-[0_-25px_60px_rgba(0,0,0,0.8)]">
+          <InfiniteMarquee />
+          <HomePageContent />
+        </div>
       </MainLayerBg>
     </>
   );

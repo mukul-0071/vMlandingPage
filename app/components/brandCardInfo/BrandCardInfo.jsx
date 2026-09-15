@@ -12,8 +12,13 @@ import brandCardThree from "../../../assets/icons/brandCardThree.svg";
 import brandCardFour from "../../../assets/icons/brandCardFour.svg";
 
 export default function BrandCardInfo() {
-  gsap.registerPlugin(ScrollTrigger);
+  if (typeof window !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+  }
+
+  const sectionRef = useRef(null);
   const stackRef = useRef(null);
+  const rightContentRef = useRef(null);
   const statsRef = useRef(null);
 
   const [counts, setCounts] = React.useState({
@@ -23,25 +28,33 @@ export default function BrandCardInfo() {
   });
 
   useEffect(() => {
-    if (!stackRef.current) return;
+    if (!stackRef.current || !sectionRef.current) return;
 
     const cards = stackRef.current.querySelectorAll(".stack-card");
 
-    // Start vertically higher up (y: -250) so cards drop down vertically onto the stack one by one
+    // Cards start vertically higher up (y: -250)
     gsap.set(cards, { opacity: 0, y: -250, scale: 1, rotate: 0 });
+
+    // Right-side copy content starts slightly lower & hidden
+    if (rightContentRef.current) {
+      gsap.set(rightContentRef.current, { opacity: 0, y: 60 });
+    }
 
     // Target rotation angles for each card to form the fan/rotated stacked look
     const cardRotations = [-18, 14, -8, 8, -4];
 
+    // Scroll-driven scrub animation timeline directly controlled by scroll position
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: stackRef.current,
-        start: "top 80%", // triggers when top of section reaches 80% of viewport height
-        toggleActions: "play none none none",
+        trigger: sectionRef.current,
+        start: "top 80%", // starts when section enters viewport
+        end: "top 15%", // completes when section is fully in view
+        scrub: 1, // smooth scroll-driven scrubbing
       },
-      defaults: { ease: "power2.out" },
+      defaults: { ease: "none" },
     });
 
+    // Animate cards dropping down sequentially as user scrolls
     cards.forEach((card, index) => {
       tl.to(
         card,
@@ -49,11 +62,24 @@ export default function BrandCardInfo() {
           opacity: 1,
           y: 0,
           rotate: cardRotations[index] || 0,
-          duration: 0.9,
+          duration: 1,
         },
-        index * 0.4, // smooth sequential drop delay
+        index * 0.45
       );
     });
+
+    // Simultaneously reveal right-side content alongside card drop sequence
+    if (rightContentRef.current) {
+      tl.to(
+        rightContentRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.8,
+        },
+        0.3
+      );
+    }
 
     // Stats counter animation trigger
     let statsSt;
@@ -90,7 +116,10 @@ export default function BrandCardInfo() {
   }, []);
 
   return (
-    <section className="relative w-full max-w-[1512px] mx-auto px-6 sm:px-12 lg:px-20 py-16 lg:py-24 flex flex-col gap-16 lg:gap-24">
+    <section
+      ref={sectionRef}
+      className="relative w-full max-w-[1512px] mx-auto px-6 sm:px-12 lg:px-20 py-16 lg:py-24 flex flex-col gap-16 lg:gap-24"
+    >
       {/* Upper Section: Cards + Copy Content */}
       <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
         {/* Left side GSAP Animated Cards stack */}
@@ -152,7 +181,10 @@ export default function BrandCardInfo() {
         </div>
 
         {/* Right side typography & copy content */}
-        <div className="w-full lg:w-[642px] shrink-0 flex flex-col items-center lg:items-start gap-8 lg:gap-[40px] text-[#F4F1E9] max-w-full lg:max-w-none mx-auto px-2 sm:px-0">
+        <div
+          ref={rightContentRef}
+          className="w-full lg:w-[642px] shrink-0 flex flex-col items-center lg:items-start gap-8 lg:gap-[40px] text-[#F4F1E9] max-w-full lg:max-w-none mx-auto px-2 sm:px-0"
+        >
           <div className="flex flex-col items-center lg:items-start gap-[10px] w-full">
             <div className="flex flex-row justify-center lg:justify-start items-baseline gap-[10px] w-full uppercase font-['Oswald'] max-w-full overflow-hidden">
               <span className="text-[38px] xs:text-[48px] sm:text-[64px] lg:text-[78px] font-[200] leading-none lg:leading-[116px] tracking-tight">
