@@ -21,7 +21,6 @@ export default function ShareYourProblem() {
     if (validWords.length === 0) return;
 
     const ctx = gsap.context(() => {
-      // Word-by-word blur-to-clear scroll reveal animation for left heading
       gsap.set(validWords, {
         filter: "blur(14px)",
         opacity: 0.15,
@@ -42,7 +41,6 @@ export default function ShareYourProblem() {
         },
       });
 
-      // Smooth position & opacity scroll animation for right side content
       if (rightContentRef.current) {
         gsap.set(rightContentRef.current, {
           opacity: 0,
@@ -84,7 +82,6 @@ export default function ShareYourProblem() {
       className="relative w-full max-w-[1512px] mx-auto px-4 sm:px-12 lg:px-20 py-16 lg:py-24 flex flex-col gap-12 lg:gap-16 text-[#F4F1E9] overflow-hidden"
     >
       <div className="w-full max-w-[1312px] mx-auto flex flex-col lg:flex-row items-start justify-between gap-10 lg:gap-16">
-        {/* Left Side: Large Title with Word-by-Word Scroll Blur-to-Normal Reveal */}
         <div className="w-full lg:w-[616px] shrink-0">
           <h2 className="font-['Oswald'] font-bold text-[40px] sm:text-[56px] lg:text-[68px] leading-[52px] sm:leading-[72px] lg:leading-[101px] uppercase text-[#F4F1E9] flex flex-wrap gap-x-3 sm:gap-x-4 lg:gap-x-5">
             {titleWords.map((item, index) => (
@@ -101,12 +98,10 @@ export default function ShareYourProblem() {
           </h2>
         </div>
 
-        {/* Right Side: Details & CTA with Smooth Position Scroll Animation */}
         <div
           ref={rightContentRef}
           className="w-full lg:w-[616px] flex flex-col gap-8 lg:gap-10 shrink-0"
         >
-          {/* Main Description */}
           <p className="font-['Satoshi',sans-serif] font-normal text-[16px] sm:text-[18px] leading-[26px] sm:leading-[29px] text-[#F4F1E9] opacity-90 max-w-[586px]">
             Send us your Instagram or your website.
             <br className="hidden sm:block" />
@@ -116,7 +111,6 @@ export default function ShareYourProblem() {
             now, written out in plain language.
           </p>
 
-          {/* 2-Column Info Grid: What we need / What you get */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
             <div className="flex flex-col gap-1">
               <h3 className="font-['Satoshi',sans-serif] font-bold text-[22px] sm:text-[26px] leading-[35px] text-[#D3533D]">
@@ -137,7 +131,6 @@ export default function ShareYourProblem() {
             </div>
           </div>
 
-          {/* Full Width Row: When */}
           <div className="flex flex-col gap-1">
             <h3 className="font-['Satoshi',sans-serif] font-bold text-[22px] sm:text-[26px] leading-[35px] text-[#D3533D]">
               When:
@@ -147,7 +140,6 @@ export default function ShareYourProblem() {
             </p>
           </div>
 
-          {/* CTA Button */}
           <div className="pt-2">
             <Button showArrow={false}>Talk to Us.</Button>
           </div>

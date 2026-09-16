@@ -91,10 +91,6 @@ export default function WayWeWork() {
             ease: "power2.out",
           });
       } else {
-        // --- MOBILE ANIMATION (Natural Scroll + Cards Slide In From Right/Left on Viewport Entry) ---
-        // Section is NOT pinned on mobile so page scrolls naturally
-        // Cards 2 & 4 come from Right (+80px x)
-        // Cards 3 & 5 come from Left (-80px x)
         const mobileCards = [
           { ref: card2Ref.current, xOffset: 90 },
           { ref: card3Ref.current, xOffset: -90 },
@@ -152,7 +148,6 @@ export default function WayWeWork() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 w-full max-w-[1312px] mx-auto">
-        {/* Card 1 - Always Revealed First */}
         <div
           ref={card1Ref}
           className="w-full h-auto min-h-[520px] lg:h-[600px] bg-[#D3533D] p-6 lg:p-7 flex flex-col justify-between relative overflow-hidden text-[#F4F1E9] border border-[#D3533D] shadow-xl z-20"
@@ -195,7 +190,6 @@ export default function WayWeWork() {
         </div>
 
         <div className="w-full flex flex-col gap-6 lg:gap-8 justify-between lg:h-[600px]">
-          {/* Card 2 - Forecast */}
           <div
             ref={card2Ref}
             className="w-full h-auto min-h-[284px] bg-[#F4F1E9] p-6 lg:p-7 flex flex-col justify-between text-[#101010] border border-[#F4F1E9] shadow-xl z-10"
@@ -232,7 +226,6 @@ export default function WayWeWork() {
             <div className="w-[180px] h-[8px] bg-[#D3533D] rounded-[4px]"></div>
           </div>
 
-          {/* Card 3 - Strategy */}
           <div
             ref={card3Ref}
             className="w-full h-auto min-h-[284px] bg-[#F4F1E9] p-6 lg:p-7 flex flex-col justify-between relative overflow-hidden text-[#101010] border border-[#F4F1E9] shadow-xl z-10"
@@ -278,7 +271,6 @@ export default function WayWeWork() {
         </div>
 
         <div className="w-full flex flex-col gap-6 lg:gap-8 justify-between lg:h-[600px]">
-          {/* Card 4 - Distribution */}
           <div
             ref={card4Ref}
             className="w-full h-auto min-h-[257px] bg-[#F4F1E9] p-6 lg:p-7 flex flex-col justify-between text-[#101010] border border-[#F4F1E9] shadow-xl z-10"
@@ -313,7 +305,6 @@ export default function WayWeWork() {
             <div className="w-[100px] h-[8px] bg-[#662920] rounded-[4px]"></div>
           </div>
 
-          {/* Card 5 - Start */}
           <div
             ref={card5Ref}
             className="w-full h-auto min-h-[311px] bg-[#D3533D] p-6 lg:p-7 flex flex-col justify-between relative overflow-hidden text-[#F4F1E9] border border-[#D3533D] shadow-xl z-10"

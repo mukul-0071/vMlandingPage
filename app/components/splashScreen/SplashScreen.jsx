@@ -11,7 +11,6 @@ export default function SplashScreen() {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    // Prevent scrolling during splash animation
     document.body.style.overflow = "hidden";
 
     const ctx = gsap.context(() => {
@@ -22,15 +21,12 @@ export default function SplashScreen() {
         },
       });
 
-      // Step 1: Gentle fade & slight scale up of logo
       tl.fromTo(
         logoRef.current,
         { opacity: 0, scale: 0.9 },
         { opacity: 1, scale: 1, duration: 0.7, ease: "power2.out" }
       )
-        // Step 2: Hold logo on screen briefly
         .to(logoRef.current, { duration: 0.6 })
-        // Step 3: Slide up the entire splash screen smoothly off-screen
         .to(overlayRef.current, {
           yPercent: -100,
           duration: 0.9,

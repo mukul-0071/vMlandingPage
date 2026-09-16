@@ -72,7 +72,6 @@ export default function ThingsYouAreWondering() {
       const isDesktop = window.innerWidth >= 1024;
 
       if (isDesktop) {
-        // Desktop: Sequential pinned reveal of cards one by one
         gsap.set(cards, { opacity: 0, y: 60, scale: 0.95 });
 
         const tl = gsap.timeline({
@@ -101,7 +100,6 @@ export default function ThingsYouAreWondering() {
           );
         });
       } else {
-        // Mobile: Unpinned natural scroll reveal for each card individually
         cards.forEach((card) => {
           gsap.set(card, { opacity: 0, y: 50, scale: 0.96 });
           gsap.to(card, {
@@ -129,7 +127,6 @@ export default function ThingsYouAreWondering() {
       ref={sectionRef}
       className="relative w-full max-w-[1512px] mx-auto px-4 sm:px-12 lg:px-20 py-16 lg:py-24 flex flex-col justify-center gap-12 lg:gap-16 text-[#F4F1E9] min-h-screen"
     >
-      {/* Title */}
       <div className="w-full max-w-[1312px] mx-auto text-center">
         <h2 className="text-[36px] sm:text-[52px] lg:text-[68px] font-bold font-['Oswald'] leading-tight uppercase tracking-tight text-[#F4F1E9]">
           THINGS YOU'RE{" "}
@@ -137,11 +134,8 @@ export default function ThingsYouAreWondering() {
         </h2>
       </div>
 
-      {/* Asymmetric 3-Column Layout Matching Figma Image 1 */}
       <div className="w-full max-w-[1312px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Left Column (Span 5) */}
         <div className="lg:col-span-5 flex flex-col gap-6">
-          {/* Card 1: Wide Short Card */}
           <div
             ref={card1Ref}
             className="group relative cursor-pointer p-7 lg:p-8 rounded-[30px] overflow-hidden bg-[#101010] border-[1px] border-[#DD7049] transition-all duration-700 ease-in-out flex flex-col justify-between min-h-[170px]"
@@ -157,9 +151,7 @@ export default function ThingsYouAreWondering() {
             </div>
           </div>
 
-          {/* Sub-grid for Card 4 & Card 5 */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {/* Card 4 */}
             <div
               ref={card4Ref}
               className="group relative cursor-pointer p-7 rounded-[30px] overflow-hidden bg-[#101010] border-[1px] border-[#DD7049] transition-all duration-700 ease-in-out flex flex-col justify-between min-h-[370px]"
@@ -175,7 +167,6 @@ export default function ThingsYouAreWondering() {
               </div>
             </div>
 
-            {/* Card 5 */}
             <div
               ref={card5Ref}
               className="group relative cursor-pointer p-7 rounded-[30px] overflow-hidden bg-[#101010] border-[1px] border-[#DD7049] transition-all duration-700 ease-in-out flex flex-col justify-between min-h-[370px]"
@@ -193,11 +184,8 @@ export default function ThingsYouAreWondering() {
           </div>
         </div>
 
-        {/* Right Column (Span 7) */}
         <div className="lg:col-span-7 flex flex-col gap-6">
-          {/* Top Sub-grid for Card 2 & Card 3 */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {/* Card 2 */}
             <div
               ref={card2Ref}
               className="group relative cursor-pointer p-7 lg:p-8 rounded-[30px] overflow-hidden bg-[#101010] border-[1px] border-[#DD7049] transition-all duration-700 ease-in-out flex flex-col justify-between min-h-[305px]"
@@ -213,7 +201,6 @@ export default function ThingsYouAreWondering() {
               </div>
             </div>
 
-            {/* Card 3 */}
             <div
               ref={card3Ref}
               className="group relative cursor-pointer p-7 lg:p-8 rounded-[30px] overflow-hidden bg-[#101010] border-[1px] border-[#DD7049] transition-all duration-700 ease-in-out flex flex-col justify-between min-h-[305px]"
@@ -230,7 +217,6 @@ export default function ThingsYouAreWondering() {
             </div>
           </div>
 
-          {/* Card 6: Bottom Wide Card */}
           <div
             ref={card6Ref}
             className="group relative cursor-pointer p-7 lg:p-8 rounded-[30px] overflow-hidden bg-[#101010] border-[1px] border-[#DD7049] transition-all duration-700 ease-in-out flex flex-col justify-between min-h-[236px]"

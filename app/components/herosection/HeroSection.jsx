@@ -21,7 +21,6 @@ export default function HeroSection() {
     if (!heroRef.current || !contentRef.current) return;
 
     const ctx = gsap.context(() => {
-      // 2. Wave entrance animation for "ALL FROM ONE HOUSE" letters dropping from top ONCE on load
       const validLetters = subHeadingLettersRef.current.filter(Boolean);
       if (validLetters.length > 0) {
         gsap.set(validLetters, {
@@ -86,10 +85,8 @@ export default function HeroSection() {
         ref={contentRef}
         className="relative z-10 flex flex-col items-center max-w-6xl w-full text-center gap-2 sm:gap-2 mt-14"
       >
-        {/* Text for BRAND. CONTENT. ATTENTION. */}
         <ParticleTextHover />
 
-        {/* Wave Entrance Drop Animation for ALL FROM ONE HOUSE */}
         <h2 className="text-[#F4F1E9] font-['Oswald'] font-bold text-base sm:text-2xl md:text-2xl md:leading-9 tracking-[0.25em] sm:tracking-[0.55em] uppercase flex flex-wrap justify-center overflow-hidden py-1">
           {subHeadingText.split("").map((char, index) => (
             <span

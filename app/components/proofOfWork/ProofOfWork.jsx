@@ -23,14 +23,12 @@ export default function ProofOfWork() {
       const isDesktop = window.innerWidth >= 1024;
 
       if (isDesktop) {
-        // Desktop: Cards roll like a wheel from left into position on scroll
         const cards = [
           card1Ref.current,
           card2Ref.current,
           card3Ref.current,
         ].filter(Boolean);
 
-        // Target final rotation tilt angles matching original design
         const targetRotations = [3.5, -2, 5];
 
         cards.forEach((card, i) => {
@@ -53,12 +51,11 @@ export default function ProofOfWork() {
             end: "+=200%",
             pin: true,
             pinSpacing: true,
-            scrub: 0.5, // 1:1 scrub sync for instant forward and reverse tracking
+            scrub: 0.5,
             anticipatePin: 1,
           },
         });
 
-        // Wheel move effect: cards roll smoothly from left into their exact grid tilt positions, and roll back on reverse scroll
         tl.to(cards, {
           x: 0,
           rotation: (index) => targetRotations[index] || 0,
@@ -74,7 +71,6 @@ export default function ProofOfWork() {
           ease: "none",
         });
       } else {
-        // Mobile: Unpinned natural scroll with alternating Left and Right card entries
         const mobileCards = [
           { ref: card1Ref.current, xOffset: -90 },
           { ref: card2Ref.current, xOffset: 90 },
@@ -131,7 +127,6 @@ export default function ProofOfWork() {
       </div>
 
       <div className="w-full max-w-[1312px] mx-auto relative min-h-[460px] flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-6 py-8">
-        {/* Card 1 */}
         <div
           ref={card1Ref}
           className="relative w-full max-w-[420px] lg:w-[420px] h-[300px] sm:h-[320px] bg-[#D3533D] border border-[#111111] shadow-2xl rotate-0 lg:rotate-[3.5deg] transition-transform duration-300 hover:rotate-0 p-8 flex flex-col justify-between shrink-0"
@@ -139,7 +134,6 @@ export default function ProofOfWork() {
           <div className="absolute inset-3 border border-[#F4F1E9] opacity-80 pointer-events-none"></div>
         </div>
 
-        {/* Card 2 */}
         <div
           ref={card2Ref}
           className="w-full max-w-[360px] lg:w-[360px] h-[340px] sm:h-[380px] bg-[#F4F4F5] border-[1.5px] border-[#D4D4D8] rotate-0 lg:-rotate-[2deg] transition-transform duration-300 hover:rotate-0 p-8 sm:p-10 flex flex-col justify-between items-center text-center shadow-xl shrink-0"
@@ -152,7 +146,6 @@ export default function ProofOfWork() {
           </span>
         </div>
 
-        {/* Card 3 */}
         <div
           ref={card3Ref}
           className="w-full max-w-[350px] lg:w-[350px] h-[340px] sm:h-[350px] bg-[#FFFFFF] border-[1.5px] border-[#111111] shadow-2xl rotate-0 lg:rotate-[5deg] transition-transform duration-300 hover:rotate-0 p-4 flex flex-col justify-between shrink-0"

@@ -20,7 +20,6 @@ export default function Insights() {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Left graphic image starts small and scales up to real size & full visibility on scroll into viewport
       if (graphicRef.current) {
         gsap.set(graphicRef.current, { opacity: 0, scale: 0.35, transformOrigin: "center center" });
         gsap.to(graphicRef.current, {
@@ -37,7 +36,6 @@ export default function Insights() {
         });
       }
 
-      // Right content list slides in from right smoothly on scroll
       if (rightContentRef.current) {
         gsap.set(rightContentRef.current, { opacity: 0, x: 70 });
         gsap.to(rightContentRef.current, {
@@ -70,7 +68,6 @@ export default function Insights() {
       </div>
 
       <div className="w-full max-w-[1312px] mx-auto flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-14">
-        {/* Left Image Graphic Container */}
         <div
           ref={graphicRef}
           className="relative w-full max-w-[780px] lg:w-[760px] xl:w-[820px] h-auto flex items-center justify-center shrink-0"
@@ -83,7 +80,6 @@ export default function Insights() {
           />
         </div>
 
-        {/* Right Content Text & Bullets & Button */}
         <div
           ref={rightContentRef}
           className="w-full lg:flex-1 max-w-[550px] lg:max-w-[580px] flex flex-col justify-center items-start gap-8 lg:gap-10 py-4 shrink-0"

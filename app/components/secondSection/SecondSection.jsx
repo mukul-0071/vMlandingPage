@@ -38,21 +38,14 @@ export default function SecondSection() {
       return;
 
     const ctx = gsap.context(() => {
-      // Calculate dynamic widths with solid fallbacks so web & mobile never collapse
       const directW = Math.max(directRef.current?.offsetWidth || 0, 190);
       const produceW = Math.max(produceRef.current?.offsetWidth || 0, 250);
 
-      // Set initial states for badge & images
       gsap.set(badgeBoxRef.current, { width: directW });
       gsap.set(badgeTrackRef.current, { yPercent: 0 });
       gsap.set(imageOneRef.current, { opacity: 1 });
       gsap.set(imageTwoRef.current, { opacity: 0 });
 
-      // Scroll-driven pinned sequence:
-      // 1. Pins when section reaches top of screen cleanly
-      // 2. Scrolling down scrubs DIRECT -> PRODUCE + Image 1 -> Image 2 1:1 with scroll position
-      // 3. Scrolling back up scrubs PRODUCE -> DIRECT + Image 2 -> Image 1 smoothly
-      // 4. pinSpacing: true reserves full vertical space so next component NEVER overlaps during animation
       const mainTl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -60,13 +53,12 @@ export default function SecondSection() {
           end: "+=100%",
           pin: true,
           pinSpacing: true,
-          scrub: 0.5, // tight 1:1 scrub sync with finger/wheel scroll
+          scrub: 0.5,
           anticipatePin: 1,
         },
       });
 
       mainTl
-        // 1:1 Scroll Scrub: DIRECT -> PRODUCE, width expand & Image 1 -> Image 2
         .to(
           badgeTrackRef.current,
           {
@@ -110,7 +102,6 @@ export default function SecondSection() {
       className="relative w-full max-w-[1512px] mx-auto px-6 sm:px-12 lg:px-20 min-h-screen flex flex-col justify-center py-12 lg:py-20 text-[#F4F1E9] overflow-hidden"
     >
       <div className="w-full grid grid-cols-1 lg:grid-cols-[616px_1fr] items-center lg:items-start justify-between gap-8 lg:gap-x-16 lg:gap-y-10">
-        {/* Item 1: Header Row & YOU JUST SHOW UP (Order 1 on Mobile, Right Column Row 1 on Desktop) */}
         <div
           ref={headerRef}
           className="order-1 lg:col-start-2 lg:row-start-1 flex flex-col items-center lg:items-start text-center lg:text-left gap-2 w-full max-w-[395px] lg:max-w-none mx-auto"
@@ -120,7 +111,6 @@ export default function SecondSection() {
               WE
             </span>
 
-            {/* Animated Pill Badge with Dynamic Smooth Width */}
             <div
               ref={badgeBoxRef}
               className="bg-[#D3533D] rounded-[10px] h-[64px] sm:h-[76px] lg:h-[84px] overflow-hidden relative shrink-0 min-w-[190px]"
@@ -148,18 +138,15 @@ export default function SecondSection() {
             </div>
           </div>
 
-          {/* YOU JUST SHOW UP */}
           <h2 className="text-[36px] sm:text-[64px] lg:text-[72px] font-bold font-['Oswald'] leading-[53px] lg:leading-tight uppercase tracking-tight text-[#F4F1E9] text-center lg:text-left w-full">
             YOU JUST SHOW UP.
           </h2>
         </div>
 
-        {/* Item 2: Framed Image (Order 2 on Mobile - directly below YOU JUST SHOW UP, Left Column Rows 1 & 2 on Desktop) */}
         <div
           ref={imageContainerRef}
           className="order-2 lg:col-start-1 lg:row-start-1 lg:row-span-2 w-full max-w-[395px] lg:max-w-[616px] mx-auto shrink-0 relative p-0 my-4 lg:my-0"
         >
-          {/* Button-Style Extended Corner Gradient Lines */}
           <span className="absolute left-0 -top-8 w-[1px] h-[40px] pointer-events-none z-20 bg-gradient-to-t from-[#FFFFFF] to-transparent"></span>
           <span className="absolute -left-8 top-0 w-[40px] h-[1px] pointer-events-none z-20 bg-gradient-to-l from-[#FFFFFF] to-transparent"></span>
 
@@ -172,7 +159,6 @@ export default function SecondSection() {
           <span className="absolute right-0 -bottom-8 w-[1px] h-[40px] pointer-events-none z-20 bg-gradient-to-b from-[#FFFFFF] to-transparent"></span>
           <span className="absolute -right-8 bottom-0 w-[40px] h-[1px] pointer-events-none z-20 bg-gradient-to-r from-[#FFFFFF] to-transparent"></span>
 
-          {/* Flush Image Container matching Mobile & Desktop aspect ratio */}
           <div className="relative w-full aspect-[395/444.5] lg:aspect-[616/731] overflow-hidden rounded-[4px] shadow-2xl border border-[#FFFFFF]">
             <div ref={imageOneRef} className="absolute inset-0 w-full h-full">
               <Image
@@ -195,12 +181,10 @@ export default function SecondSection() {
           </div>
         </div>
 
-        {/* Item 3: Body Copy, Bullets & Button (Order 3 on Mobile - below image, Right Column Row 2 on Desktop) */}
         <div
           ref={contentRef}
           className="order-3 lg:col-start-2 lg:row-start-2 w-full lg:w-[694px] max-w-[395px] lg:max-w-none mx-auto shrink-0 flex flex-col items-start gap-8 lg:gap-10"
         >
-          {/* Copy Details: You & We */}
           <div className="flex flex-col gap-5 w-full font-['Satoshi',sans-serif]">
             <div className="flex flex-col gap-1">
               <h3 className="text-[26px] font-bold text-[#F4F1E9] leading-[35px]">
@@ -221,7 +205,6 @@ export default function SecondSection() {
             </div>
           </div>
 
-          {/* Bullet Points */}
           <div className="flex flex-col gap-2.5 font-['Satoshi',sans-serif] text-[16px] text-[#F4F1E9]">
             <div className="flex items-center gap-3">
               <span className="w-1.5 h-1.5 rounded-full bg-[#F4F1E9] shrink-0"></span>
@@ -237,7 +220,6 @@ export default function SecondSection() {
             </div>
           </div>
 
-          {/* Footer Copy & Taglines */}
           <div className="flex flex-col gap-3 w-full font-['Satoshi',sans-serif]">
             <p className="text-[16px] leading-[22px] text-[#F4F1E9]">
               Just <span className="text-[#D3533D]">one team</span>, taking your
@@ -251,7 +233,6 @@ export default function SecondSection() {
             </h4>
           </div>
 
-          {/* Action Button */}
           <div className="pt-2">
             <Button showArrow={true}>Who we are</Button>
           </div>
