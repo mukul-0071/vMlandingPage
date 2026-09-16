@@ -75,7 +75,7 @@ export function DottedLayer({ children, className = "" }) {
       style={{
         backgroundImage:
           "radial-gradient(circle, transparent 0, transparent 1.5px, #000000 1.5px)",
-        backgroundSize: "24px 24px",
+        backgroundSize: "20px 20px",
       }}
     >
       {children}
