@@ -9,6 +9,16 @@ export default function AboutusBackground({ children, className = "" }) {
     <div
       className={`relative w-full min-h-screen bg-[#101010] overflow-hidden ${className}`}
     >
+      {/* Background Dotted Layer with #6B6B6B Dots */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none opacity-60"
+        style={{
+          backgroundImage:
+            "radial-gradient(#6B6B6B 1.5px, transparent 1.5px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
+
       {/* Background Flash Ellipse SVG Asset */}
       <div className="absolute top-45 sm:top-55 md:top-65 left-[48.58%] -translate-x-1/2 pointer-events-none z-0 w-[1200px] sm:w-[1500px] md:w-[1905px] max-w-none h-auto opacity-75 mix-blend-screen">
         <Image
