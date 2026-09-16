@@ -13,11 +13,13 @@ export default function PinnedStepCard({
   className = "",
 }) {
   const cardRef = useRef(null);
+  const [hasBeenHovered, setHasBeenHovered] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [mouseRotate, setMouseRotate] = useState({ rotateX: 0, rotateY: 0 });
 
   const handleMouseEnter = () => {
     setIsHovered(true);
+    setHasBeenHovered(true);
   };
 
   const handleMouseMove = (e) => {
@@ -42,6 +44,8 @@ export default function PinnedStepCard({
     setIsHovered(false);
     setMouseRotate({ rotateX: 0, rotateY: 0 });
   };
+
+  const active = isHovered || hasBeenHovered;
 
   return (
     <div className={`relative w-[340px] sm:w-[396px] h-[396px] ${className}`}>
@@ -75,7 +79,7 @@ export default function PinnedStepCard({
         }`}
         style={{
           transformOrigin: "78% 12%",
-          transform: isHovered
+          transform: active
             ? `rotate(-10.43deg) rotateX(${mouseRotate.rotateX}deg) rotateY(${mouseRotate.rotateY}deg)`
             : "rotate(0deg)",
         }}
@@ -91,12 +95,12 @@ export default function PinnedStepCard({
             </p>
           </div>
 
-          {isHovered && (
+          {buttonText && (
             <button
               onClick={buttonOnClick}
-              className="w-full max-w-[243px] py-3 px-4 bg-[#D3533D] hover:bg-[#bd4531] text-[#F4F1E9] rounded-[10px] font-['Satoshi',sans-serif] font-bold text-[15px] sm:text-[18px] leading-[22px] transition-all transform hover:scale-105 active:scale-95 animate-in fade-in duration-200"
+              className="w-full max-w-[243px] py-3 px-4 bg-[#D3533D] hover:bg-[#bd4531] text-[#F4F1E9] rounded-[10px] font-['Satoshi',sans-serif] font-bold text-[15px] sm:text-[18px] leading-[22px] transition-all transform hover:scale-105 active:scale-95"
             >
-              {buttonText || "See the documents you'll need"}
+              {buttonText}
             </button>
           )}
         </div>

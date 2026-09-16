@@ -75,12 +75,12 @@ export default function HowItWorksSection() {
         ))}
       </div>
 
-      <div className="relative z-10 mt-20 flex flex-col items-center gap-6">
-        <div className="flex flex-row items-center gap-6 sm:gap-8">
-          <Button className="min-w-[140px] sm:min-w-[170px] h-12">
+      <div className="relative z-10 mt-25 flex flex-col items-center gap-8">
+        <div className="flex flex-row items-center gap-6 sm:gap-10">
+          <Button className="min-w-35 sm:min-w-42.5 h-12">
             Sign Up
           </Button>
-          <Button className="min-w-[140px] sm:min-w-[170px] h-12">
+          <Button className="min-w-35 sm:min-w-42.5 h-12">
             Sign In
           </Button>
         </div>
