@@ -23,6 +23,28 @@ const inter = Inter({
 export const metadata = {
   title: "Virk Media",
   description: "Virk Media is a leading digital marketing agency.",
+  icons: {
+    icon: "/icon.png",
+    apple: "/icon.png",
+  },
+  openGraph: {
+    title: "Virk Media",
+    description: "Virk Media is a leading digital marketing agency.",
+    images: [
+      {
+        url: "/virkmedia.png",
+        width: 1200,
+        height: 630,
+        alt: "Virk Media Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Virk Media",
+    description: "Virk Media is a leading digital marketing agency.",
+    images: ["/virkmedia.png"],
+  },
 };
 
 export const viewport = {
