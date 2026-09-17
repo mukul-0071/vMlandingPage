@@ -14,7 +14,7 @@ export default function AboutusBackground({ children, className = "" }) {
         className="absolute inset-0 z-0 pointer-events-none opacity-60"
         style={{
           backgroundImage:
-            "radial-gradient(#6B6B6B 1.5px, transparent 1.5px)",
+            "radial-gradient(#6B6B6B 1px, transparent 1px)",
           backgroundSize: "24px 24px",
         }}
       />
